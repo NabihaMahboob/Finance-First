@@ -1,0 +1,83 @@
+html{
+    background-color: #fde4f2;
+}
+
+body{
+    background-color: #fde4f2;
+    color: palevioletred;
+}
+h1,
+h2,
+h3,
+h4,
+p{
+    color: palevioletred;
+}
+
+
+
+nav,
+.nav-bar {
+    background-color:#fde4f2;
+}
+
+nav a {
+    color: hotpink;
+}
+
+nav a:hover {
+    background-color: pink;
+    color: palevioletred;
+}
+
+.home-intro {
+    background-color: #f9cee7;
+}
+
+.dropdown{
+    color: pink;
+}
+
+.get-started{
+    background-color: palevioletred;
+    color:fde4f2;
+    border-color: hotpink;
+}
+.dropbtn{
+    background-color: #fde4f2;
+    color: hotpink;
+    border: none;
+    padding: 10px 35px;
+    text-decoration: none;
+}
+
+.dropbtn:hover {
+    background-color: pink;
+    color: palevioletred;
+    
+}
+
+
+
+form,
+.product,
+.edit-product,
+.forum_post {
+    background-color: #f4b8da;
+    color: #f0f0f0;
+    border: 1px solid white;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="submit"] {
+    background-color: #f4b8da;
+    color: #f0f0f0;
+    border: 1px solid white;
+}
+
+footer {
+    background-color: #f9cee7;
+    color: #ccc;
+}
