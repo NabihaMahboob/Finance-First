@@ -1,5 +1,9 @@
 <?php
+
+// Start the session
 session_start();
+
+// Include the database connection file
 include '../database/db_connection.php';
 $message = "";
 $toastClass = "";   
@@ -10,9 +14,12 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
+// Handle theme selection from POST request and store in session
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
 }
+
+// Set theme and corresponding CSS file
 $theme = $_SESSION['theme'] ?? 'style';
 $cssFile = match ($theme) {
     'night-mode' => 'night-mode.css',

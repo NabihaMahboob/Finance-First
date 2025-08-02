@@ -1,6 +1,3 @@
-html{
-    background-color: #fde4f2;
-}
 
 body{
     background-color: #fde4f2;
@@ -18,7 +15,7 @@ p{
 
 nav,
 .nav-bar {
-    background-color:#fde4f2;
+    background-color: #f9cee7;
 }
 
 nav a {
@@ -34,15 +31,41 @@ nav a:hover {
     background-color: #f9cee7;
 }
 
-.dropdown{
-    color: pink;
+.dropdown .dropbtn {
+    color: hotpink;
 }
+
+.dropdown .dropbtn:hover {
+    background-color: pink;
+}
+.dropdown-content{
+    background-color: #fde4f2;
+}
+
+.dropdown-content a{
+    color: hotpink;
+}
+
+.dropdown-content a:hover {
+  background-color: pink;
+}
+
+.home-header{
+    background-image: url("../media/pinkHomeIntro.jpg");
+    opacity:0.75;
+}
+
 
 .get-started{
     background-color: palevioletred;
     color:fde4f2;
-    border-color: hotpink;
+    border-color: rgb(163, 86, 112);
 }
+
+.get-started:hover{
+    background-color:rgb(223, 115, 175);
+}
+
 .dropbtn{
     background-color: #fde4f2;
     color: hotpink;
@@ -57,6 +80,28 @@ nav a:hover {
     
 }
 
+.like_button {
+    background-color: #f4b8da;
+    color: white;
+}
+
+.like_button:hover {
+    background-color: white;
+}
+
+.add_forum_button{
+    background-color: #f4b8da;
+    color: palevioletred;
+}
+
+.add_forum_button:hover{
+    background-color: #f8cfe7;
+    
+}
+
+.status_table th, .status_table td{
+    border-color: palevioletred;
+}
 
 
 form,
@@ -68,16 +113,42 @@ form,
     border: 1px solid white;
 }
 
+.debt-consolidation:hover,
+.financial-planning:hover,
+.financial-tools:hover,
+.investment-advice:hover,
+.credit-score:hover,
+.financial-education:hover,
+.expert-assistance:hover,
+.newsletters:hover,
+.workshops:hover{
+    box-shadow: 0 8px 16px 0 rgba(226, 176, 228, 0.626);
+}
+
+.services i{
+    color: plum;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="submit"] {
     background-color: #f4b8da;
-    color: #f0f0f0;
+    color: black;
     border: 1px solid white;
 }
 
-footer {
+.footer {
     background-color: #f9cee7;
-    color: #ccc;
+}
+
+.footer a {
+    color: hotpink;
+}
+.footer a:hover {
+    color: palevioletred;
+}
+
+.footer span {
+    color: palevioletred;
 }

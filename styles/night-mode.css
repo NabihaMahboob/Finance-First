@@ -1,6 +1,4 @@
-html{
-    background-color: black;
-}
+
 
 body{
     background-color: black;
@@ -27,7 +25,8 @@ p{
 }
 
 
-nav {
+nav,
+.nav-bar {
     background-color: #1f1f1f;
 }
 
@@ -39,6 +38,16 @@ nav a:hover {
     background-color: #333;
 }
 
+.home-header{
+    color: white;
+    background-image: url("../media/darkHomeIntro.jpg");
+    opacity:0.75;
+}
+
+.home-info{
+    color: white;
+}
+
 .get-started{
     background-color: #030213;
     color: white;
@@ -46,8 +55,72 @@ nav a:hover {
 }
 
 
+.get-started:hover{
+    background-color:#151414;
+}
+
+.dropdown .dropbtn {
+    color: white;
+}
+
+.dropdown .dropbtn:hover {
+    background-color: #333;
+}
+
+.dropdown-content{
+    background-color: #1e1e1e;
+}
+
+.dropdown-content a{
+    color: white;
+}
+
+.dropdown-content a:hover {
+  background-color: #333;
+}
+
 .home-intro {
     background-color: #333;
+}
+
+.like_button {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.like_button:hover {
+    background-color: #030213;
+}
+
+.add_forum_button{
+    background-color: #333;
+    color: white;
+}
+
+.add_forum_button:hover{
+    background-color: #1e1e1e;
+}
+
+.edit-product{
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+.debt-consolidation:hover,
+.financial-planning:hover,
+.financial-tools:hover,
+.investment-advice:hover,
+.credit-score:hover,
+.financial-education:hover,
+.expert-assistance:hover,
+.newsletters:hover,
+.workshops:hover{
+    box-shadow: 0 8px 16px 0 rgba(200, 197, 190, 0.663);
+}
+
+.services i{
+    color: grey;
 }
 
 form,
@@ -68,7 +141,22 @@ input[type="submit"] {
     border: 1px solid #555;
 }
 
-footer {
+.appointment-submit{
+    padding: 20px;
+    background-color: red;
+}
+
+.footer {
     background-color: #1f1f1f;
-    color: #ccc;
+}
+
+.footer a {
+    color: #f0f0f0a6;
+}
+.footer a:hover {
+    color: white;
+}
+
+.footer span {
+    color: white;
 }

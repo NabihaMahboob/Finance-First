@@ -1,6 +1,11 @@
 <?php
+
+// Start the session
 session_start();
+
+// Include the database connection file
 include '../database/db_connection.php';
+
 // Check if the user is logged in, if
 // not then redirect them to the login page
 if (!isset($_SESSION['email'])) {
@@ -8,9 +13,12 @@ if (!isset($_SESSION['email'])) {
     exit();
 }       
 
+// Handle theme selection from POST request and store in session
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
 }
+
+// Set theme and corresponding CSS file
 $theme = $_SESSION['theme'] ?? 'style';
 $cssFile = match ($theme) {
     'night-mode' => 'night-mode.css',
@@ -18,6 +26,7 @@ $cssFile = match ($theme) {
     default => 'style.css',
 };
 
+//Sets session information
 $userName = $_SESSION['user_name'] ?? 'User';
 $userEmail = $_SESSION['user_email'] ?? '';
 $userRole = $_SESSION['user_role'] ?? 'user';       
@@ -27,12 +36,13 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>Add Forum</title>
+    <title>Shop</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/<?= htmlspecialchars($cssFile) ?>">
 </head>
 
 <body>
+    <!-- Nav Bar -->
     <nav class="nav-bar">
         <div>
             <h1>Finance First</h1>
@@ -47,12 +57,11 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
                 <div class="dropdown-content">
                     <a href="investment.php">Investment</a>
                     <a href="budget.php">Budget</a>
-                    <a href="#">Link 3</a>
                 </div>
             </div>
             <a href="appointment.php">Appointment</a>
             <a href="forums_logged_in.php">Forums</a>
-            <a href="Shop.php">Shop</a>
+            <a href="shop.php">Shop</a>
         </div>
 
         <div>
@@ -67,9 +76,7 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
     <p>Feel free to explore our offerings and make purchases as needed.</p>
 
     <?php
-    // Fetch products from the database or define them statically
-    // For simplicity, we will define them statically here.
-    // In a real application, you would fetch these from a database.
+    // Get products from the database
     $sql = "SELECT * FROM products";
     $result = mysqli_query($conn, $sql);
 
@@ -81,13 +88,13 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
         $description = htmlspecialchars($row['description']);
         $imageName = htmlspecialchars($row['image']);
 
-        // Sanitize filename or use logic to match images correctly
+        // Set filename
         $imageFilename = strtolower(str_replace(' ', '', $imageName)) . '.jpg';
         $imagePath = "../media/" . $imageFilename;
 
-        $option1_name = htmlspecialchars($row['option1_name']);
+        $option1_name = htmlspecialchars($row['option1_value']);
         $option1_price = number_format($row['price1'], 2);
-        $option2_name = htmlspecialchars($row['option2_name']);
+        $option2_name = htmlspecialchars($row['option2_value']);
         $option2_price = number_format($row['price2'], 2);
 
         echo '
@@ -97,7 +104,6 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
             <p>' . $description . '</p>
             <p><strong>' . $option1_name . ':</strong> $' . $option1_price . '</p>
             <p><strong>' . $option2_name . ':</strong> $' . $option2_price . '</p>
-            <button>Add to Cart</button>
         </div>';
     }
 
@@ -107,9 +113,33 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
 }
 ?>
 
-        <footer>
-            <p>&copy; 2023 Finance First. All rights reserved.</p>
-        </footer>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-div">
+    <ul class="socials">
+        <span>Socials</span>
+        <li><a href="https://www.linkedin.com/financefirst">LinkedIn</a></li>
+        <li><a href="https://www.facebook.com/financefirst">Facebook</a></li>
+        <li><a href="https://www.instagram.com/financefirst">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/financefirst">Tiktok</a></li>
+    </ul>
+    
+    <ul class="wiki-pages">
+        <span>Wiki Pages</span>
+        <li><a href="../wiki/register_wiki.php" target="_blank">Login and Registration</a></li>
+        <li><a href="../wiki/appointment_wiki.php" target="_blank">Appointments</a></li>
+        <li><a href="../wiki/forum_wiki.php" target="_blank">Forums</a></li>
+        <li><a href="../wiki/budget_wiki.php" target="_blank">Budget</a></li>
+        <li><a href="../wiki/theme_wiki.php" target="_blank">Theme</a></li>
+    </ul>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.67410029974!2d-79.5428651034961!3d43.71812280463856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1753924038204!5m2!1sen!2sca" 
+            width="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p>&copy; 2025 Finance First. All rights reserved.</p>
+
+        
+
+    </footer>
     
 
 </body>

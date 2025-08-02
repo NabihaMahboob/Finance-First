@@ -1,6 +1,10 @@
 <?php
+
+// Start the session
 session_start();
 
+// Include the database connection file
+include '../database/db_connection.php';
 // Check if the user is logged in, if
 // not then redirect them to the login page
 if (!isset($_SESSION['email'])) {
@@ -8,9 +12,12 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
+// Handle theme selection from POST request and store in session
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
 }
+
+// Set theme and corresponding CSS file
 $theme = $_SESSION['theme'] ?? 'style';
 $cssFile = match ($theme) {
     'night-mode' => 'night-mode.css',
@@ -36,6 +43,7 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
 
 
 <body>
+    <!-- Nav Bar -->
     <nav class="nav-bar">
         <div>
             <h1>Finance First</h1>
@@ -50,12 +58,12 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
                 <div class="dropdown-content">
                     <a href="investment.php">Investment</a>
                     <a href="budget.php">Budget</a>
-                    <a href="#">Link 3</a>
+                    
                 </div>
             </div>
             <a href="appointment.php">Appointment</a>
             <a href="forums_logged_in.php">Forums</a>
-            <a href="Shop.php">Shop</a>
+            <a href="shop.php">Shop</a>
         </div>
 
         <div>
@@ -64,13 +72,15 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
         </div>
     </nav>
 
+
+    <h1> Book an Appointment</h1>
     <video autoplay muted loop class="calendar-video">
         <source src="../media/calendar.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    <h1> Book an Appointment</h1>
     <h2>Choose a date and time for your appointment</h2>
     
+    <!-- Form to request an appointment -->
     <form action="appointment.php" method="post">
         <p>Date:</p>
         <input type="date" name="date" required>
@@ -86,16 +96,15 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
             <option value="credit_score_improvement">Credit Score Improvement</option>
             <option value="other">Other</option>
             
-            
         </select>
         <p>Comments:</p>
         <textarea name="comments" placeholder="Any specific questions or topics you want to discuss?"></textarea>
         <br></br>
-        <button type="submit">Book Appointment</button>
+        <button class="appointment-submit" type="submit">Book Appointment</button>
     </form>
 <?php
+// Adds appointment to database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include '../database/db_connection.php';
     $date = mysqli_real_escape_string($conn, $_POST['date']);
     $time = mysqli_real_escape_string($conn, $_POST['time']);       
     $service = mysqli_real_escape_string($conn, $_POST['service']);
@@ -112,16 +121,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-    <p>Need to cancel or reschedule? <a href="edit_appointment.php" target="_blank">Cancel Appointment</a></p>
+<!-- Leads to cancel page -->
+    <p>Need to cancel? <a href="edit_appointment.php" target="_blank">Cancel Appointment</a></p>
 
-    <h2>Upcoming Workshops</h2>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-div">
+    <ul class="socials">
+        <span>Socials</span>
+        <li><a href="https://www.linkedin.com/financefirst">LinkedIn</a></li>
+        <li><a href="https://www.facebook.com/financefirst">Facebook</a></li>
+        <li><a href="https://www.instagram.com/financefirst">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/financefirst">Tiktok</a></li>
+    </ul>
+    
+    <ul class="wiki-pages">
+        <span>Wiki Pages</span>
+        <li><a href="../wiki/register_wiki.php" target="_blank">Login and Registration</a></li>
+        <li><a href="../wiki/appointment_wiki.php" target="_blank">Appointments</a></li>
+        <li><a href="../wiki/forum_wiki.php" target="_blank">Forums</a></li>
+        <li><a href="../wiki/budget_wiki.php" target="_blank">Budget</a></li>
+        <li><a href="../wiki/theme_wiki.php" target="_blank">Theme</a></li>
+    </ul>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.67410029974!2d-79.5428651034961!3d43.71812280463856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1753924038204!5m2!1sen!2sca" 
+            width="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <p>&copy; 2025 Finance First. All rights reserved.</p>
 
-    <p>Join our upcoming workshops to learn more about financial topics and improve your financial literacy.</p>
-    <ul>
-        <li>Workshop on Budgeting - Date: 2023-10-15, Time: 10:00 AM</li>
-        <li>Investment Strategies - Date: 2023-10-20, Time: 2:00 PM</li>
-        <li>Debt Management - Date: 2023-10-25, Time: 1:00 PM</li>
-    </ul>   
+        
+
+    </footer>
 
 </body>
 </html>
