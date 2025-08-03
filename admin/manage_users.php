@@ -3,6 +3,13 @@
 // Start the session
 session_start();
 
+// Include database connection
+include '../database/db_connection.php';
+
+// Initialize message and toast class for notifications
+$message = "";
+$toastClass = "";
+
 // Handle theme selection from POST request and store in session
 if (isset($_POST['theme'])) {
     $_SESSION['theme'] = $_POST['theme'];
@@ -15,6 +22,7 @@ $cssFile = match ($theme) {
     'pink' => 'pink.css',
     default => 'style.css',
 };
+
 // Check if the user is logged in, if
 // not then redirect them to the login page
 if (!isset($_SESSION['email'])) {
@@ -22,12 +30,76 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
+
+    if (!in_array($role, ['user', 'admin'])) {
+        $role = 'user'; 
+    }
+
+    $sql = "INSERT INTO userdata (first_name, last_name, email, password, role) 
+            VALUES ('$first_name', '$last_name', '$email', '$hashedPassword', '$role')";
+
+    if (mysqli_query($conn, $sql)) {
+        $message = "User added successfully";
+        $toastClass = "success-toast";
+    } else {
+        $message = "User could not be added.";
+        $toastClass = "error-toast";
+    }
+}
+
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']);
+    if (mysqli_query($conn, "DELETE FROM userdata WHERE id = $id")) {
+        $message = "User deleted successfully";
+        $toastClass = "success-toast";
+    } else {
+        $message = "User could not be deleted.";
+        $toastClass = "error-toast";
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
+    $id = intval($_POST['id']);
+    $first_name = mysqli_real_escape_string($conn, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($conn, $_POST['last_name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
+    
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "UPDATE userdata SET 
+            first_name = '$first_name',
+            last_name = '$last_name',
+            email = '$email',
+            password = '$hashedPassword',
+            role = '$role'
+            WHERE id = $id";
+
+    if (mysqli_query($conn, $sql)) {
+        $message = "User edited successfully";
+        $toastClass = "success-toast";    
+    } else {
+        $message = "User could not be edited.";
+        $toastClass = "error-toast";
+    }
+}
+
+$result = mysqli_query($conn, "SELECT * FROM userdata ORDER BY first_name ASC");
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>title</title>
+    <title>Manage Users</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="../styles/<?= htmlspecialchars($cssFile) ?>">
 </head>
@@ -58,13 +130,68 @@ if (!isset($_SESSION['email'])) {
     <p>Use the navigation links above to access different sections of the admin panel.</p>
     <p>For any assistance, please contact support.</p>
     <p>To view user details, please select from the options provided below.</p>
-    <ul>
-        <li><a href="view_all_users.php">View All Users</a></li>
-        <li><a href="add_new_user.php">Add New User</a></li>
-        <li><a href="edit_user_details.php">Edit User Details</a></li>
-        <li><a href="delete_user.php">Delete User</a></li>
-    </ul>
-</body>
+
+
+        <!-- Displays error or succes message -->
+    <?php if (!empty($message)): ?>
+        <div class="<?php echo $toastClass; ?>">
+            <?php echo htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
+
+    <form method="post" action="manage_users.php">
+        <h2>Add User</h2>
+        <input type="text" name="first_name" placeholder="First name" required>
+        <input type="text" name="last_name" placeholder="Last name" required>
+        <input type="text" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <select name="role" required>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+        </select>
+        <br></br>
+        <input type="submit" name="add_user" value="Add User">
+        </form>
+
+
+
+    <h2>Existing Users</h2>
+    <div class="edit-users">
+    <?php if (mysqli_num_rows($result) > 0): ?>
+    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+        <!-- Editable forms with each product -->
+        <form method="POST" class="edit-user-form">
+            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+            <label>First Name:</label><br>
+            <input type="text" name="first_name" value="<?= htmlspecialchars($row['first_name']) ?>" required><br>
+
+            <label>Last Name:</label><br>
+            <input type="text" name="last_name" value="<?= htmlspecialchars($row['last_name']) ?>" required><br>
+
+            <label>Email:</label><br>
+            <input type="email" name="email" value="<?= htmlspecialchars($row['email']) ?>" required><br>
+
+            <label>Password:</label><br>
+            <input type="password" name="password" placeholder="Enter a new password" value="<?= htmlspecialchars($row['password']) ?>" required><br>
+            <small>Note: Password will be encrypted when saved</small><br>
+
+            <label>Account Type:</label><br>
+                <select name="role" required>
+                <option value="user" <?= ($row['role'] ?? 'user') === 'user' ? 'selected' : '' ?>>User</option>
+                <option value="admin" <?= ($row['role'] ?? 'user') === 'admin' ? 'selected' : '' ?>>Admin</option>
+                </select><br><br>
+
+            <button type="submit" name="update_user">Update</button>
+            <a href="manage_users.php?delete=<?= $row['id'] ?>" onclick="return confirm('Delete this user?')">Delete</a>
+        </form>
+    <?php endwhile; ?> 
+    </div>
+
+     <?php else: ?>
+        <p>No users found in the database.</p>
+    <?php endif; ?>
+    
+
 
 <!-- Footer -->
 <footer class="footer">
@@ -93,5 +220,7 @@ if (!isset($_SESSION['email'])) {
         
 
     </footer>
+
+    </body>
 
 </html>
