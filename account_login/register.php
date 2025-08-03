@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    
+    <!-- Nav Bar-->
     <nav class="nav-bar">
         <div>
             <h1>Finance First</h1>
@@ -157,6 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     <?php endif; ?>
     
+        <!-- Forum post form-->
         <form method="post" action="">
         <h1>Register</h1>
         <p>First Name</p>

@@ -26,6 +26,7 @@ $cssFile = match ($theme) {
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 
+<!-- privacy policy content-->
 <body>
 
     <div class="privacy-content">

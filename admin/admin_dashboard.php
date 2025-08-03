@@ -125,6 +125,8 @@ if ($conn->connect_error) {
         <li><a href="../wiki/forum_wiki.php" target="_blank">Forums</a></li>
         <li><a href="../wiki/budget_wiki.php" target="_blank">Budget</a></li>
         <li><a href="../wiki/theme_wiki.php" target="_blank">Theme</a></li>
+        <li><a href="../wiki/admin_wiki.php" target="_blank">Admin</a></li>
+
     </ul>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d184552.67410029974!2d-79.5428651034961!3d43.71812280463856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C%20ON!5e0!3m2!1sen!2sca!4v1753924038204!5m2!1sen!2sca" 
             width="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
