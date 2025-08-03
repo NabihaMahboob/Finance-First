@@ -369,7 +369,8 @@ input[type="submit"]:hover {
 }
 
 .shop-products,
-.edit-products-list {
+.edit-products-list,
+.edit-users-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -377,7 +378,8 @@ input[type="submit"]:hover {
 }
 
 .product,
-.edit-product{
+.edit-product,
+.edit-user{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 15%;

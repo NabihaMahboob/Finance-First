@@ -156,10 +156,11 @@ $result = mysqli_query($conn, "SELECT * FROM userdata ORDER BY first_name ASC");
 
 
     <h2>Existing Users</h2>
-    <div class="edit-users">
+    <div class="edit-users-list">
     <?php if (mysqli_num_rows($result) > 0): ?>
     <?php while ($row = mysqli_fetch_assoc($result)) : ?>
         <!-- Editable forms with each product -->
+         <div class="edit-user">
         <form method="POST" class="edit-user-form">
             <input type="hidden" name="id" value="<?= $row['id'] ?>">
             <label>First Name:</label><br>
@@ -184,6 +185,7 @@ $result = mysqli_query($conn, "SELECT * FROM userdata ORDER BY first_name ASC");
             <button type="submit" name="update_user">Update</button>
             <a href="manage_users.php?delete=<?= $row['id'] ?>" onclick="return confirm('Delete this user?')">Delete</a>
         </form>
+    </div>
     <?php endwhile; ?> 
     </div>
 
