@@ -43,6 +43,7 @@ $cssFile = match ($theme) {
 
         <div>
         
+        <a href="index.php">Home</a>
         <a href="careers.php">Careers</a>
         <a href="about.php">About</a>
         <a href="forums.php">Forums</a>
