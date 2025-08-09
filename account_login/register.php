@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newUserId = $insertStmt->insert_id;
             // Set session variables for logged-in user
             $_SESSION['user_id'] = $newUserId;
-            $_SESSION['user_email'] = $email;
+            $_SESSION['email'] = $email;
             $_SESSION['user_name'] = $firstName . ' ' . $lastName;
             $_SESSION['user_role'] = $role;
             $_SESSION['user_first_name'] = $firstName;
