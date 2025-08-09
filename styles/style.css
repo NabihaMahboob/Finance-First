@@ -295,7 +295,8 @@ input[type="submit"]:hover {
 }   
 
 .welcome-video,
-.importance-video {
+.importance-video,
+.budget-video {
     display: block;
     margin: 20px auto;
     aspect-ratio: 16 / 9;
@@ -446,13 +447,6 @@ input[type="submit"]:hover {
 
 .add_forum_button:hover {
     background-color: #4e9cf0;
-}
-
-.budget-video{
-    display: block;
-    margin: 20px auto;
-    max-width: 100%;
-    height: auto;
 }
 
 .success-toast {

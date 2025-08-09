@@ -89,7 +89,7 @@ $firstName = $_SESSION['user_first_name'] ?? 'User';
         $imageName = htmlspecialchars($row['image']);
 
         // Set filename
-        $imageFilename = strtolower(str_replace(' ', '', $imageName)) . '.jpg';
+        $imageFilename = str_replace(' ', '', $imageName) . '.jpg';
         $imagePath = "../media/" . $imageFilename;
 
         $option1_name = htmlspecialchars($row['option1_value']);
